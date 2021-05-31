@@ -4,47 +4,49 @@ const router = Router();
 const nodemailer = require('nodemailer');
 
 router.post('/send-email', async (req, res) => {
-    const { name, email, phone, message } = req.body;
+       const { name, email, phone, message } = req.body;
 
     contentHTML = `
         <h1>User Information</h1>
         <ul>
-            <li>Username: ${name}</li>
-            <li>User Email: ${email}</li>
-            <li>PhoneNumber: ${phone}</li>
+            <li>Nombre de usuario: ${name}</li>
+            <li>Correo electrónico: ${email}</li>
+            <li>Número de contacto: ${phone}</li>
         </ul>
         <p>${message}</p>
     `;
-
-    let transporter = nodemailer.createTransport({
-        host: 'mail.fazttech.net',
+    // console.log(contentHTML)
+    // console.log("Contacto");
+    const transporter = nodemailer.createTransport({
+        host: 'mail.studio73pty.com',
         port: 587,
         secure: false,
         auth: {
-            user: 'testtwo@fazttech.net',
-            pass: 'testtwocontraseña'
+            user: 'test_web@studio73pty.com',
+            pass: '123456qwerty'
         },
-        tls: {
+        tls:{
             rejectUnauthorized: false
         }
-    });
-
-    let info = await transporter.sendMail({
-        from: '"FaztTech Server" <testtwo@fazttech.xyz>', // sender address,
-        to: 'fazttech@gmail.com',
-        subject: 'Website Contact Form',
-        // text: 'Hello World'
-        html: contentHTML
     })
 
-    console.log('Message sent: %s', info.messageId);
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-    // Preview only available when sending through an Ethereal account
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-
-    res.redirect('/success.html');
+    try {
+        const info = await transporter.sendMail({
+            from: "'Studio73pty Server' <test_web@studio73pty.com>",
+            to: "jdiaz.97ma@gmail.com",
+            subject:'Webiste contact form',
+            //text:'hello world'
+            html: contentHTML
+        })
+     
+        console.log('message sent', info.messageId)
+        // res.render('contacto', {msg: 'Email enviado'})
+        res.redirect('https://studio73pty.studio73pty.com/');
+    } catch (error) {
+        console.log(error)
+    }
+    
+    
 });
 
 module.exports = router;
