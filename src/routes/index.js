@@ -41,7 +41,7 @@ router.post('/send-email', async (req, res) => {
      
         console.log('message sent', info.messageId)
         // res.render('contacto', {msg: 'Email enviado'})
-        res.redirect('https://studio73pty.studio73pty.com/');
+        res.redirect('https://studio73pty.studio73pty.com/success.html');
     } catch (error) {
         console.log(error)
     }
